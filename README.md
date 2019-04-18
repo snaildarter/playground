@@ -13,3 +13,5 @@
 
 1. scp /Users/neal/web/index.js root@47.107.108.54:/home/wxbot
 
+
+
