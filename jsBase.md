@@ -81,4 +81,4 @@ arr.constructor === Array
 
 常见的类数组有：函数的参数argument，DOM对象列表（比如通过document.querySelectorAll 得到的列表），jQuery对象（比如$('div')）
 
-
+## promise
