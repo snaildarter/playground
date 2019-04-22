@@ -34,6 +34,20 @@ const promise = new Promise(function(resolve, reject){
 });
 ```
 *Promise*构造函数接受一个函数作为参数，该函数的两个参数分别是*resolve*和*reject*。它们是两个函数，由JavaScript引擎提供，不用自己部署。
+*resolve*函数的作用是，将*promise*对象的状态从“未完成”变为“成功”（即从pending变为resolved），在一步操作成功时调用，并将异步操作的结果，作为参数传递出去；*reject*函数的作用是，将*promise*对象的状态从“未完成”变为“失败”（即从pending变为rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
+
+*Promise*实例生成以后，可以用*then*方法分别指定*resolved*状态和*rejected*状态的回调函数。
+
+```js
+promise.then(function(value){
+    // success
+}, function(error){
+    // failure
+});
+```
+*them*方法可以接受两个回调函数作为参数。第一个回调函数是*promise*对象的状态改变为*resolved*时调用，第二个是回调函数是*promise*对象的状态变为*rejected*时调用。其中，第二个函数是可选的，不一定要提供。这两个函数都接受Promise对象传出的值作为参数。
+
+下面是一个*Promise*对象的简单例子。
 
 
 
