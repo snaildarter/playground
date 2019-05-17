@@ -120,6 +120,48 @@ fetch('https://example.com/profile/avatar', {
     .then(res => console.log('Success:', res));
 ```
 
+## 上传多个文件
+
+可以通过HTML <input type="file" mutiple>元素，FormDate()和fetch()上传文件。
+
+```js
+const formData = new FormData();
+const photos = document.querySelector("input[type='flile'][multiple]");
+
+formData.append('title', 'My Vegas Vacation');
+formData.append('photos', photos.files);
+
+fetch('https://example.com/posts', {
+    method: 'POST',
+    body: formData
+})
+.then(res => res.json())
+.then(res => console.log(res))
+.catch(err => console.error('Error:', error));
+```
+
+## 检测请求是否成功
+
+如果遇到网络故障，fetch() promise将会reject,带上一个TypeError对象。虽然这个情况经常是遇到了权限文件或类似问题----比如404不是一个网络故障。想要精确的判断fetch()是否成功，需要包含promise resolved的情况，此时在判断Response.ok是不是为true。类似以下代码：
+
+```js
+fetch('flowers.jpg').then(function(res){
+    if (res.ok) {
+        return res.blob();
+    }
+    throw new Error('Network response was not ok.');
+}).then(function(myBlob){
+    let objectURL = URL.createObjectURL(myBlob);
+    myImage.src = objectURL;
+}).catch(function(err){
+    console.log('There has been a problem with you fetch operation:  ', error.mssage);
+})
+```
+
+
+
+
+
 
 
 
