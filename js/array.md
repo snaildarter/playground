@@ -460,6 +460,204 @@ var log = function (n) {
 filter 方法用于过滤数组成员，满足条件的成员组成一个新数组返回。
 
 它的参数是一个函数，所有数组成员依次执行该函数，返回结果为true的成员组成一个新数组返回。该方法不会改变原数组。
+```js
+[1, 2, 3, 4, 5].filter(function(elem){
+    return (elem > 3);
+})
+// [4, 5]
+```
+上面代码将大于3的数组成员，作为一个新数组返回。
+```js
+var arr = [0, 1, 'a', false];
+
+arr.filter(Boolean);
+// [1, "a"]
+```
+上面代码中，filter方法返回数组arr里面所有布尔值为true的成员。
+
+filter方法的参数函数可以接受三个参数： 当前成员，当前位置和整个数组。
+```js
+[1, 2, 3, 4, 5].filter(function(elem, index, arr) {
+    return index % 2  === 0;
+});
+// [1, 3, 5]
+```
+上面代码返回偶数位置的成员组成的新数组。
+
+filter 方法还可以接受第二个参数，用来绑定参数函数内部的this变量。
+
+```js
+var obj = {MAX: 3};
+var myFilter = function(item) {
+    if (item > this.MAX) return true; 
+};
+
+var arr = [2, 8, 3, 4, 1, 3, 2, 9];
+arr.filter(myFilter, obj) // [8, 4, 9]
+```
+上面代码中，过滤器myFilter内部有this变量，他可以被filter方法的第二个参数obj绑定，返回大于3的成员。
+
+### 3.13 some(), every()
+这两个方法类似“断言”（assert）,返回一个布尔值，表示判断数组成员是否符合某种条件。
+
+他们接受一个函数作为参数，所有数组成员依次执行该函数。该函数接受三个参数：当前成员、当前位置和整个数组，然后返回一个布尔值。
+
+some方法是只要一个成员的返回值是true，则整个some方法的返回值就是true，否则放回false。
+
+```js
+var arr = [1, 2, 3, 4, 5];
+arr.some(function(elem, index, arr) {
+    return elem >= 3;
+});
+// true
+```
+上面代码中，如果数组arr有一个成员大于等于3，some方法就返回true。
+
+every方法是所有成员的返回值都是true，整个every方法才返回true，否则返回false。
+
+```js
+var arr = [1, 2, 3, 4, 5];
+arr.every(function(elem, index, arr) {
+    return elem >= 3;
+});
+// false
+```
+上面代码中，数组arr并非所有成员大于等于3，所以返回false。
+
+注意，对于空数组，some方法返回false，every方法返回true，回调函数都不会执行。
+
+```js
+function isEven(x) { return x % 2 === 0 }
+
+[].some(isEven) // false
+[].every(isEven) // true
+```
+some和every方法可以接受第二个参数，用来绑定参数函数内部的this变量。
+
+### 3.14 reduce(), reduceRight()
+reduce方法和reduceRight方法依次处理数组的每个成员，最终累计为一个值。他们的差别是，reduce是从左到右处理（从第一个成员到最后一个成员），reduceRight则是从右到左（从最后一个成员到第一个成员），其他完全一样。
+```js
+[1, 2, 3, 4, 5].reduce(function(a, b) {
+    console.log(a, b);
+    return a + b;
+})
+// 1 2
+// 3 3
+// 6 4
+// 10 5
+// 最后结果是：15
+```
+上面代码中，reduce方法求出数组所有成员的和。第一次执行，a是数组的第一个成员1，b是数组的第二个成员2。第二次执行，a为上一轮的返回值3，b为第三个成员3。第三次执行，a为上一轮的返回值6，b为第四个成员4。第四次执行，a为上一轮返回值10，b为第五个成员5。至此所有成员遍历完成，整个方法的返回值就是最后一轮的返回值15。
+
+reduce方法和reduceRight方法的第一个参数都是一个函数。该函数接受以下四个参数。
+1. 累积变量，默认为数组的第一个成员
+2. 当前变量，默认为数组的第二个成员
+3. 当前位置（从0开始）
+4. 原数组
+这个四个参数中，只有前两个是必须的，后面两个则是可选的。
+
+如果要对累积变量指定初值，可以把它放在reduce方法和reduceRight方法的第二个参数、
+
+```js
+[1, 2, 3, 4, 5].reduce(function(a, b) {
+    return a + b;
+}, 10);
+// 25
+```
+上面的第二个参数相当于设定了默认值，处理空数组时尤其有用。
+```js
+function add(prev, cur) {
+    return prev + cur;
+}
+[].reduce(add)
+//  TypeError: Reduce of empty array with no initial value
+
+[].reduce(add, 1)
+// 1
+```
+上面代码中，由于空数组取不到初始值，reduce方法会报错。这是，加上第二个线束，就能保证总是返回一个值。
+
+下面是一个reduceRight方法的例子。
+```js
+function subtract(prev, cur) {
+    return prev - cur;
+}
+
+var a = [3, 2, 1];
+a.reduce(subtract) // 0
+a.reduceRight(subtract) // -4
+```
+上面代码中，reduce方法相当于3减去2再减去1，reduceRight方法相当于1减去2在减去3.
+
+由于这两个方法会遍历数组，所以所以实际上还可以用来做一些遍历相关的操作。比如，找出字符长度最长的数组成员。
+```js
+function findLongest(entries) {
+    return entries.reduce(function(longest, entry) {
+        return entry.length > longest.length ? entry : longest;
+    }, '');
+}
+
+findLongest(['aaa', 'bb', 'c']) // "aaa"
+```
+上面代码中，reduce的参数函数将会字符长度教长的按个数组成员，作为累积值。
+
+这导致遍历所有成员之后，累积值就是字符长度最长的那个成员。
+
+### 3.15 indexOf(), lastIndexOf()
+indexOf方法返回给定元素在数组中第一次出现的位置。如果没有出现则返回-1。
+```js
+var a = ['a', 'b', 'c'];
+
+a.indexOf('b') // 1
+a.indexOf('y') // -1
+```
+indexOf方法还可以接受第二个参数，表示搜索的开始位置。
+```js
+['a', 'b', 'c'].indexOf('a', 1) // -1
+```
+
+上面代码聪哥1号位置开始搜索字符a，结果为-1，表示没搜索到。
+
+lastIndexOf方法返回给定元素在数组中最后一次出现的位置，如果没有出现则返回-1。
+```js
+var a = [2, 3, 9, 2];
+a.lastIndexOf(2) // 3
+a.lastIndexOf(7) // -1
+```
+注意，这两个方法不能用来搜索NaN的位置，即他们无法确定数组成员是否包含NaN。
+```js
+[NaN].indexOf(NaN) // -1
+[NaN].lastIndexOf(NaN) // -1
+```
+这是因为这两个方法内部，使用严格相等运算符（===）进行比较，而NaN是唯一一个不等于自身的值。
+
+### 3.16 链式调用
+上面这些数组方法之中，有不少返回的还是数组，所以可以链式使用。
+```js
+var users = [
+    {name: 'tom', email: 'tom@example.com'},
+    {name: 'peter', email: 'peter@example.com'},
+];
+
+users
+    .map(function(user) {
+        return user.email;
+    })
+    .filter(function(email) {
+        return /^t/.test(email);
+    })
+    .forEach(function(email) {
+        console.log(email);
+    });
+
+// "tom@example.com"
+```
+上面代码中，先产生一个所有Email地址组成的数组，然后在过滤出以t开头的Email地址，最后将它打印出来。
+
+
+
+
+
 
 
 
