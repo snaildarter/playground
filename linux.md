@@ -27,4 +27,7 @@ cp [-adfilprsu] 源文件(source) 目标文件(destination)
 -i:交互模式，在删除前询问用户是否操作
 -r:递归删除，常用在目录的删除
 
+> scp [可选参数] file_source file_target
 
+-r: 递归复制整个目录
+-q: 不显示传输进度条
