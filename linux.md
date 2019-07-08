@@ -29,5 +29,9 @@ cp [-adfilprsu] 源文件(source) 目标文件(destination)
 
 > scp [可选参数] file_source file_target
 
+## scp 同步文件
+
+1. scp /Users/neal/web/index.js root@47.107.108.54:/home/wxbot
+
 -r: 递归复制整个目录
 -q: 不显示传输进度条
