@@ -91,3 +91,84 @@ const eventEmitter = new events.EventEmitter();
 
 1. 具有某个实例功能的对象实现事件符合语义，事件的监听和发生应该是一个对象的方法。
 2. js的对象机制是基于原型的，支持部分多重继承，继承EventEmitter不会打乱对象原有的继承关系。
+
+### 方法&描述
+
+> addListener(enent, listener)
+
+为指定时间添加一个监听器到监听数组的尾部。
+
+> on(enent, listener)
+
+为指定事件注册一个监听器，接受一个字符串event和一个回调函数。
+```js
+sever.on('connection', function(stream){
+    console.log('some connected');
+})
+```
+
+> once(event, listener)
+
+为指定事件注册一个单次监听器，及监听最多触发一次，触发后立刻接触监听器。
+
+```js
+server.once('connection', function(stream){
+    console.log('ah, we have our first user!'s);
+})
+```
+
+> removeListener(event, listener)
+
+移除指定事件的某个监听器，监听器必须是该事件已经注册过的监听器。
+
+它接受两个参数，第一个是事件名称，第二个是回调函数名称。
+```js
+const callback = stream => {
+    console.log('someone connected!');
+};
+
+server.on('connection', callback);
+
+server.removeListener('connection', callback);
+```
+
+> removeAllListeners([event])
+
+移除所有事件的所有监听器，如果指定事件，则移除指定事件的所有监听器。
+
+> setMaxListeners(n)
+
+默认情况下，EventEmitters如果你添加的监听器超过十个就会输出警告信息。setMaxListeners函数用于提高监听器的默认限制数量。
+
+> listeners(event)
+
+返回指定事件的监听数组。
+
+> emit(event, [arg1], [arg2], [...])
+
+按监听的书信执行每个监听器，如果事件有注册监听返回true，否则返回false。
+
+### 类方法
+
+> listenerCount(emitter, event)
+
+返回指定事件的监听器数量
+
+### 事件
+
+1. newListener 该事件在添加新监听器时被触发
+2. removeListener 从指定监听器数组中删除一个监听器，需要注意的是，此操作将会改变处于被删除监听器之后的那些监听器的索引
+
+
+## Nodejs Buffer
+
+### buffer 目前支持的字符编码包括：
+
+1. ascli
+2. utf8
+3. utf16le
+4. ucs2
+5. base64
+6. latin1
+7. binary
+8. hex
