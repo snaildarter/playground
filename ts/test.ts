@@ -37,3 +37,19 @@ hello();
  * `2. 改写现有代码时，任意值允许在编译时可选择地包含或移除类型检查`
  * `3. 定义存储各种类型数据的数组时`
  */
+// eg: 1
+ let xAny: any = 4;
+ xAny = 'I am who i am';
+ xAny = false;
+
+// eg: 2
+let y: any = 4;
+y.isItExists();
+y.toFixed();
+
+// eg: 3
+let arrayList: any[] = [1, false, 'fine'];
+arrayList[1] = 100;
+
+
+
