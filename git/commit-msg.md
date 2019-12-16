@@ -47,3 +47,6 @@ module.exports = {
 ```
 
 类似于这种
+
+npm --no-git-tag-version version patch
+
