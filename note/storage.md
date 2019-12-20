@@ -131,3 +131,32 @@ window.addEventListener('storage', onStorageChange);
 
 storage 一般来说直接使用会比较鸡肋，至少我感觉是，要二次封装一下，直接存js对象或者字符串，取出也是js对象或者字符串。过期时间，这个是比较需要的。
 
+所以要适当封装一下。
+
+```js
+
+class Storage {
+    constructor() {
+        // 初始化的时候清理过期的值
+
+        this.session = sessionStroage;
+    }
+
+    setSessionItem (key, value) {
+        if (!key || !value) {
+            new Error("key and value are must.");
+        }
+
+        this.session.setItem(key, JSON.stringify(value));
+    }
+
+    getSessionItem (key){
+        if (!key) {
+            new Error("key is must.");
+        }
+
+        return JSON.parse(this.session.getItem(key));
+    }
+}
+```
+
