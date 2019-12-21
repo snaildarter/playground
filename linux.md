@@ -39,3 +39,15 @@ cp [-adfilprsu] 源文件(source) 目标文件(destination)
 -C: 允许压缩。（将-C标志传递给ssh，从而打开压缩功能）
 -p: 保留原文件的修改时间，访问时间和访问权限
 -v: 详细方式显示输出。scp和谁说（1）会显示整个过程的调试信息，
+
+## adduser && passwd
+
+linux 中系统增加用户及设置密码
+
+```
+adduser lls
+passwd lls
+```
+
+增加 _lls_ 用户
+在给 _lls_ 添加密码
