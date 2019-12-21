@@ -50,3 +50,13 @@ module.exports = {
 
 npm --no-git-tag-version version patch
 
+
+
+## git tags
+
+在gitlab中增加tag后，然后在vscode中拉代码的时候就会报错，
+
+可以在命令行中
+
+git fetch --tages -f
+
