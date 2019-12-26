@@ -138,7 +138,6 @@ storage 一般来说直接使用会比较鸡肋，至少我感觉是，要二次
 class Storage {
     constructor() {
         // 初始化的时候清理过期的值
-
         this.session = sessionStroage;
     }
 
