@@ -51,3 +51,16 @@ passwd lls
 
 增加 _lls_ 用户
 在给 _lls_ 添加密码
+
+## ad 压力测试
+
+#我们可以模拟100个并发用户，对一个页面发送100个请求#
+```
+ab -n 100 -c 100 -p E:\param.txt -T application/json http://xx.com
+```
+-n 请求数
+-c 并发数
+-p 参数文本路径
+-T 请求参数类型
+
+
