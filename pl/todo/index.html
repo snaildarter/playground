@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue制作简单的Todo List演示_dowebok</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <main class="dowebok" id="todolist">
+        <h1>待办事项<span>一次只做一件事</span></h1>
+
+        <template v-if="todo.length">
+            <transition-group name="todolist" tag="ul">
+                <li v-for="item in todoByStatus" v-bind:class="item.done ? 'done' : ''" v-bind:key="item.id">
+                    <span class="label">{{item.label}}</span>
+                    <div class="actions">
+                        <button class="btn-picto" type="button" v-on:click="markAsDoneOrUndone(item)" v-bind:aria-label="item.done ? 'Undone' : 'Done'" v-bind:title="item.done ? '标记为未完成' : '标记为完成'">
+                            <i aria-hidden="true" class="material-icons">{{ item.done ? 'check_box' : 'check_box_outline_blank' }}</i>
+                        </button>
+                        <button class="btn-picto" type="button" v-on:click="deleteItemFromList(item)" aria-label="Delete" title="删除">
+                            <i aria-hidden="true" class="material-icons">delete</i>
+                        </button>
+                    </div>
+                </li>
+            </transition-group>
+            <togglebutton label="完成的移动到底部" name="todosort" v-on:clicked="clickontoogle" />
+        </template>
+
+        <p v-else class="emptylist">没有待办事项！</p>
+
+        <form name="newform" v-on:submit.prevent="addItem">
+            <label for="newitem">添加待办事项</label>
+            <input type="text" name="newitem" id="newitem" v-model="newitem">
+            <button type="submit">添加</button>
+        </form>
+    </main>
+    <script src="js/vue.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
