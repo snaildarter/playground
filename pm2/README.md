@@ -6,6 +6,12 @@
 pm2 start idnex.js
 ```
 
+> 重新守护的进程
+
+```js
+pm2 restart idnex.js(名字)
+```
+
 > 停止要守护的进程
 
 ```js
