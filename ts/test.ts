@@ -41,3 +41,39 @@ for (var i = 0; i < 10; i++) {
     })(i);
 }
 
+interface SearchFunc {
+    (source: string, subString: string): boolean;
+}
+
+let mySearch: SearchFunc;
+
+mySearch = function(source: string, subString: string){
+    let result = source.search(subString);
+    return result > -1;
+};
+
+interface StringArray {
+    [index: number]: string;
+};
+
+let myArray: StringArray;
+myArray = ["Bob", "Fred"];
+
+let myStr: string = myArray[0];
+
+interface ReadonlyStringArray {
+    readonly [index: number]: string;
+}
+
+let myArray2: ReadonlyStringArray = ["Alice", "Bob"];
+
+// myArray2[2] = "bob"
+
+interface ClockInterface {
+    currentTime: Date;
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    constructor(h: number, m: number){}
+}

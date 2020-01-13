@@ -36,3 +36,18 @@ for (var i = 0; i < 10; i++) {
         }, 100 * i);
     })(i);
 }
+var mySearch;
+mySearch = function (source, subString) {
+    var result = source.search(subString);
+    return result > -1;
+};
+;
+var myArray;
+myArray = ["Bob", "Fred"];
+var myStr = myArray[0];
+var myArray2 = ["Alice", "Bob"];
+var Clock = /** @class */ (function () {
+    function Clock(h, m) {
+    }
+    return Clock;
+}());
