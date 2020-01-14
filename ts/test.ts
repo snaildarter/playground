@@ -33,10 +33,10 @@ let unusable2: null = null;
 
 let someValue: any = "this is a string";
 let strLength: number = (<string>someValue).length; // (someValue as string).length;
-for (var i = 0; i < 10; i++) {
+for (var i = 0; i < 3; i++) {
     (function(i){
         setTimeout(function(){
-            console.log(i);
+            // console.log(i);
         }, 100*i);
     })(i);
 }
@@ -77,3 +77,50 @@ class Clock implements ClockInterface {
     currentTime: Date;
     constructor(h: number, m: number){}
 }
+
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+
+    greet() {
+        return "Hello, " + this.greeting;
+    }
+}
+
+let greeter = new Greeter('world');
+
+// console.log(greeter.greet())
+
+class Animal {
+    public name: string;
+    public constructor(theName: string) {
+        this.name = theName;
+    }
+
+    public move(distanceImMeters: number = 0) {
+        console.log(`Animal moved ${distanceImMeters}m.`);
+    }
+}
+
+class Dog extends Animal {
+    public constructor(name: string) {
+        super(name);
+    }
+    bark() {
+        console.log("Woof! Woof!");
+    }
+}
+
+const dog = new Dog('123');
+
+// dog.bark();
+// dog.move(10);
+// dog.bark();
+
+function buildName(firstName: string, ...restOfName: string[]) {
+    return firstName + ' ' + restOfName.join(' ');
+}
+
+
