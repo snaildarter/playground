@@ -106,3 +106,7 @@ function buildName(firstName) {
     }
     return firstName + ' ' + restOfName.join(' ');
 }
+function indetity(arg) {
+    return arg;
+}
+console.log(indetity(123), indetity("id"));

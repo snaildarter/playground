@@ -123,4 +123,11 @@ function buildName(firstName: string, ...restOfName: string[]) {
     return firstName + ' ' + restOfName.join(' ');
 }
 
+function indetity<T>(arg: T): T {
+    return arg;
+}
+
+console.log(indetity(123),indetity("id"))
+
+
 
