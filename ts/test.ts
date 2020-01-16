@@ -129,5 +129,16 @@ function indetity<T>(arg: T): T {
 
 console.log(indetity(123),indetity("id"))
 
+enum Direction {
+    Up = 1,
+    Down,
+    Left,
+    Right
+}
+
+enum Response1 {
+    No = 0,
+    Yes = 1
+}
 
 

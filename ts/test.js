@@ -110,3 +110,15 @@ function indetity(arg) {
     return arg;
 }
 console.log(indetity(123), indetity("id"));
+var Direction;
+(function (Direction) {
+    Direction[Direction["Up"] = 1] = "Up";
+    Direction[Direction["Down"] = 2] = "Down";
+    Direction[Direction["Left"] = 3] = "Left";
+    Direction[Direction["Right"] = 4] = "Right";
+})(Direction || (Direction = {}));
+var Response1;
+(function (Response1) {
+    Response1[Response1["No"] = 0] = "No";
+    Response1[Response1["Yes"] = 1] = "Yes";
+})(Response1 || (Response1 = {}));
