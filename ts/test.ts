@@ -141,4 +141,15 @@ enum Response1 {
     Yes = 1
 }
 
+interface Named {
+    name: string;
+}
+
+class Person {
+    name: string;
+}
+
+let p: Named;
+
+p = new Person();
 

@@ -122,3 +122,10 @@ var Response1;
     Response1[Response1["No"] = 0] = "No";
     Response1[Response1["Yes"] = 1] = "Yes";
 })(Response1 || (Response1 = {}));
+var Person = /** @class */ (function () {
+    function Person() {
+    }
+    return Person;
+}());
+var p;
+p = new Person();
