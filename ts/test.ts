@@ -153,3 +153,54 @@ let p: Named;
 
 p = new Person();
 
+
+function isNumber(x: any): x is number {
+    return typeof x === "number";
+}
+
+function isString(x: any): x is string {
+    return typeof x === "number";
+}
+
+function padLeft(value: string, padding: string | number) {
+    if (isNumber(padding)) {
+        return Array(padding + 1).join(" ") + value;
+    }
+
+    if (isString(padding)) {
+        return padding + value;
+    }
+
+    throw new Error(`Expected string or number, got '${padding}'.`)
+}
+
+function padLeft1(value: string, padding: string | number) {
+    if (typeof padding === "number") {
+        return Array(padding + 1).join(" ") + value;
+    }
+
+    if (typeof padding === 'string') {
+        return padding + value;
+    }
+
+    throw new Error(`Expected string or number, got '${padding}'.`);
+}
+
+interface Padder {
+    getPaddingString(): string
+}
+
+class SpaceRepeatingpadder implements Padder {
+    constructor(private numSpace: number) {}
+
+    getPaddingString() {
+        return Array(this.numSpace + 1).join(" ");
+    }
+}
+
+function f(x: number, y?: number) {
+    return x + (y || 0);
+}
+
+console.log(f(1, 2))
+console.log(f(2))

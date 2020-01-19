@@ -129,3 +129,41 @@ var Person = /** @class */ (function () {
 }());
 var p;
 p = new Person();
+function isNumber(x) {
+    return typeof x === "number";
+}
+function isString(x) {
+    return typeof x === "number";
+}
+function padLeft(value, padding) {
+    if (isNumber(padding)) {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (isString(padding)) {
+        return padding + value;
+    }
+    throw new Error("Expected string or number, got '" + padding + "'.");
+}
+function padLeft1(value, padding) {
+    if (typeof padding === "number") {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (typeof padding === 'string') {
+        return padding + value;
+    }
+    throw new Error("Expected string or number, got '" + padding + "'.");
+}
+var SpaceRepeatingpadder = /** @class */ (function () {
+    function SpaceRepeatingpadder(numSpace) {
+        this.numSpace = numSpace;
+    }
+    SpaceRepeatingpadder.prototype.getPaddingString = function () {
+        return Array(this.numSpace + 1).join(" ");
+    };
+    return SpaceRepeatingpadder;
+}());
+function f(x, y) {
+    return x + (y || 0);
+}
+console.log(f(1, 2));
+console.log(f(2));
