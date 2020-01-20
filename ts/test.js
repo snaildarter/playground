@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var _a;
 // 基础类型
 var isDone = false;
 var decLiteral = 6;
@@ -167,3 +168,8 @@ function f(x, y) {
 }
 console.log(f(1, 2));
 console.log(f(2));
+var sym1 = Symbol('key');
+var obj = (_a = {},
+    _a[sym1] = "value 123",
+    _a);
+console.log(obj[sym1]);
