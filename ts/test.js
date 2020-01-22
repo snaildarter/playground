@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var _a;
 // 基础类型
 var isDone = false;
 var decLiteral = 6;
@@ -60,11 +59,10 @@ var myArray;
 myArray = ["Bob", "Fred"];
 var myStr = myArray[0];
 var myArray2 = ["Alice", "Bob"];
-var Clock = /** @class */ (function () {
-    function Clock(h, m) {
-    }
-    return Clock;
-}());
+// class Clock implements ClockInterface {
+//     currentTime: Date;
+//     constructor(h: number, m: number){}
+// }
 var Greeter = /** @class */ (function () {
     function Greeter(message) {
         this.greeting = message;
@@ -168,8 +166,8 @@ function f(x, y) {
 }
 console.log(f(1, 2));
 console.log(f(2));
-var sym1 = Symbol('key');
-var obj = (_a = {},
-    _a[sym1] = "value 123",
-    _a);
-console.log(obj[sym1]);
+// const sym1 = Symbol('key');
+// let obj = {
+//     [sym1]: "value 123"
+// }
+// console.log(obj[sym1])

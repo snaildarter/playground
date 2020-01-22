@@ -73,10 +73,10 @@ interface ClockInterface {
     currentTime: Date;
 }
 
-class Clock implements ClockInterface {
-    currentTime: Date;
-    constructor(h: number, m: number){}
-}
+// class Clock implements ClockInterface {
+//     currentTime: Date;
+//     constructor(h: number, m: number){}
+// }
 
 class Greeter {
     greeting: string;
@@ -205,10 +205,10 @@ function f(x: number, y?: number) {
 console.log(f(1, 2))
 console.log(f(2))
 
-const sym1 = Symbol('key');
+// const sym1 = Symbol('key');
 
-let obj = {
-    [sym1]: "value 123"
-}
+// let obj = {
+//     [sym1]: "value 123"
+// }
 
-console.log(obj[sym1])
+// console.log(obj[sym1])
