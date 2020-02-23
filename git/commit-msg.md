@@ -58,5 +58,5 @@ npm --no-git-tag-version version patch
 
 可以在命令行中
 
-git fetch --tages -f
+git fetch --tags -f
 
