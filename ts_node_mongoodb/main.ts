@@ -19,7 +19,7 @@ User.deleteOne({_id: '5e68b276c47e2a1bd8ef33af'}, (err: any) => {
 });
 
 
-mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/msg', {useNewUrlParser: true});
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
