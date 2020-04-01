@@ -1,6 +1,6 @@
 # React Top-Level API
 
-React is the entry point to the React library. If you load React from a <script> tag, these top-level APIs are available on the React global. If  you use ES6 with npm, you can write import React from 'react'. If you use ES5 with npm, you can write var React = require('react').
+React is the entry point to the React library. If you load React from a <script> tag, these top-level APIs are available on the React global. If you use ES6 with npm, you can write import React from 'react'. If you use ES5 with npm, you can write var React = require('react').
 
 ## Overview
 
@@ -76,7 +76,61 @@ React.PureComponent is similar to React.Component. The difference between them i
 If your React component's render() function renders the some result given the same props and state, you can use React.PureComponent for a performance boost in some cases.
 
 > ## Note
+>
 > React.PureComponent't shouldComponentUpdate() only shallowly compares the objects. If these contain complex data structures, it may produce false-negatives for deeper differences. Only extend PureComponent when you expect to have simple props and state, or use forceUpate() when you know deep data structures have changed. Or, consider using immutable objects to facilitate fast comparisons of nested data.
-> 
->  Furthermore, React.PureComponent's shouldComponentUpdate() skips prop updates for the whole component subtree. Make sure all the children components are also 'Pure'.
+>
+> Furthermore, React.PureComponent's shouldComponentUpdate() skips prop updates for the whole component subtree. Make sure all the children components are also 'Pure'.
 
+## React.memo
+
+```jsx
+const MyComponent = React.memo(function MyComponent(props) {
+  // render using props
+});
+```
+
+React.memo is a higher order component. It's similar to React.PureComponent but for function components instead of classes.
+
+If you function component renders the result given the same props, you can wrap it in a call to React.memo for a performance boost in some cases by memoizing the result. This means that React will skip rendering the component, and reuse the last rendered result.
+
+React.memo only checks for prop changes. If you function component wrapped in React.memo has a useState or useContext Hook in its implementation, it will still rerender when state or context change.
+
+By default it will only shallowly compare complex objects in the props object. If you want control over the comparison, you can also provide a custom comparison function as the second argument.
+
+```jsx
+function MyComponent(props) {
+  // render using props
+}
+
+function areEqual(prevProps, nextProps) {
+  /*
+    return true if passing nextProps to render would return the same result as passing prevProps to render, otherwise return false
+  */
+}
+
+export default React.memo(MyComponent, areEqual);
+```
+
+This method only exists as a performance optimization. Do not rely on it to "prevent" a render, as this can lead to bugs.
+
+> ## Note
+>
+> Unlike the shouldComponentUpdate() method on class components, the areEqual function returns true if the props are equal and false if the props are not equal. This is the inverse from shouldComponentUpdate.
+
+## createElement()
+
+```jsx
+React.createElement(type, [props], [...children]);
+```
+
+Create and return a new React element of the given type. The type argument can be either a tag name string (such as 'div' or 'span'), a React component type (a class or a function), or a React fragment type.
+
+Code writen with JSX will be converted to use React.createElement(). You will not typically invoke React.createElement() directly if you are using JSX. See React Without JSX to learn more.
+
+## cloneElement()
+
+```jsx
+React.cloneElement(element, [props], [...children]);
+```
+
+Clone and return a new React element using element as the starting point. The resulting element will have the original element's props with the new porps merged in shallowly. New children will replace existing children. key and ref from the original element will be preserved.
