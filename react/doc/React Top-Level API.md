@@ -134,3 +134,203 @@ React.cloneElement(element, [props], [...children]);
 ```
 
 Clone and return a new React element using element as the starting point. The resulting element will have the original element's props with the new porps merged in shallowly. New children will replace existing children. key and ref from the original element will be preserved.
+
+React.cloneElement() is almost equivalent to:
+
+```jsx
+<element.type {...element.props} {...props}>
+  {children}
+</element.type>
+```
+
+However, it also preserves refs. This means that if you get a child with a ref on it, you won't accidentally steal it from your ancestor. You will get the same ref attached to your new element.
+
+This API was introduced as a replacement of the deprecated React.addons.cloneWithProps().
+
+## createFactory()
+
+```jsx
+React.createFactory(type);
+```
+
+Return a function that produces React elements of a given type. Like React.createElement(), the type argument can be either a tag name string (such as 'div' or 'span'), a React component type (a class or a function), or a React fragment type.
+
+This helper is considered legacy, and we encourage you to either use JSX of use React.createElement() directly instead.
+
+You will not typically invoke React.createFactory() directly if you are using JSX. See React without JSX to learn more.
+
+## isValidElement()
+
+```jsx
+React.isValidElement(object);
+```
+
+Verifies the object is a React element. Returns true or false.
+
+## React.Children
+
+React.Children provides utilities for dealing with the this.props.children opaque data structure.
+
+### React.Children.map
+
+```jsx
+React.Children.map(children, function[(thisArg)])
+```
+
+Invokes a function on every immediate child contained within children with this set to thisArg. If children is an array it will be traversed and the function will be called for each child in the array. If children is null or undefined, this method will return null or undefined rather than an array.
+
+> ## Note
+>
+> If children is a Fragment it will be treated as a single child and not traversed.
+
+### React.Children.forEach
+
+```jsx
+React.Children.forEach(children, function[(thisArg)])
+```
+
+Like React.Children.map() but does not return an array.
+
+### React.Children.count
+
+```jsx
+React.Children.count(children);
+```
+
+Returns the total number of components in children, equal to the number of times that a callback passed to map or forEach would be invoked.
+
+### React.Children.only
+
+```jsx
+React.Children.only(children);
+s;
+```
+
+Verifies that children has only one child (a React element) and returns it. Otherwise this method throws an error.
+
+> ## Note:
+>
+> React.Children.only() does not accept the return value of React.Children.map() beacause it is an array rather than a React element.
+
+### React.Children.toArray
+
+```jsx
+React.Children.toArray(children);
+```
+
+Returns the children opaque date structure ad a flat array with keys assigned to each child. Useful if you want to manipulate collections of children in your render methods, especially if you want to reorder or slice this.props.children before passing it down.
+
+> ## Note:
+>
+> React.Children.toArray() changes keys to preserve the semantics of nested arrays when flattening lists of children. That is, toArray prefixes each key in the returned array so that each element's key is scoped to input array containing it.
+
+## React.Fragment
+
+The React.Fragment component lets you return multiple elements in a render() method without creating an additional DOM element:
+
+```jsx
+render() {
+  return (
+    <React.Fragment>
+      Some text.
+      <h2>A heading</h2>
+    </React.Fragment>
+  )
+}
+```
+
+You can also use it with the shorthand <></> syntax. For more information, see React v16.2.0: Improved Support for Fragments.
+
+## React.createRef
+
+React.createRef creates a ref that can be attached to React elements via the ref attribute.
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.inputRef = React.createRef();
+  }
+
+  render() {
+    return <input type="text" ref={this.inputRef} />;
+  }
+
+  componentDidMount() {
+    this.inputRef.current.focus();
+  }
+}
+```
+
+## React.forwardRef
+
+React.forwardRef creates a React component that forwards the ref attribute it receives to another component below in the tree. This technique is not very common but is particularyly useful in two scenarios:
+
+- Forwarding refs to DOM components
+- Forwarding refs in higher-order-components
+
+React.forwardRef accepts a rendering function as an argument. React will call this function with props and ref as two arguments. This function ashould return a React node.
+
+```jsx
+const FancyButton = React.forwardRef({props, ref} => {
+  <button ref={ref} className="FancyButton">
+    {props.children}
+  </button>
+});
+
+// You can now get a ref directly to the DOM button;
+const ref = React.createRef();
+<FancyButton ref={ref}>Click me!</FancyButton>
+```
+
+In the above example, React passes a ref given to <FancyButton ref={ref}> element as a second argument to the rendering function inside the React.forwardRef call. This rendering function pass the ref to the <button ref={ref}> element.
+
+As a result, after React attaches the ref, ref.current will point directly to the <button> DOM element instance.
+
+For more information, see forwarding refs.
+
+## React.lazy
+
+React.lazy() lets you define a component that is loaded dynamically. This helps reduce the bundle size to delay loading components that aren't used during the initial render.
+
+You can learn how to use it from our code splliting documentation. You might also want to check out this article explaining how to use in more detail.
+
+```jsx
+// This component is loaded dynamically
+const SomeComponet = React.lazy(() => import('./SomeComponent));
+```
+
+Note that rendering lazy components requires that there's <React.Suspense> component higher in the rendering tree. This is how you specify a loading indicator.
+
+> ## Note
+>
+> Using React.lazy with dynamic import requires to be available in the JS environment. This requires a polyfill on IE11 and below.
+
+## React.Suspense
+
+React.Suspense lets you specify the loading indicator in case some components in the tree below it are not yet ready to render. Today, lazy loading components is the only use case supported by <React.Suspense>:
+
+```jsx
+// This component is loaded dynamically
+const OtherComponent = React.lazy(() => import("./OtherComponent"));
+
+function MyComponent() {
+  return (
+    // Displays <Spinner> until OtherComponent loads
+    <React.Suspense fallback={<Spinner />}>
+      <div>
+        <OtherComponent />
+      </div>
+    </React.Suspense>
+  );
+}
+```
+
+It is documented in our code splitting guide. Note that lazy components can be deep inside the Suspense tree -- it doesn't have to wrap every one of them. The best practive is to place <Suspense> where you want to see a loading indicator, but to use lazy() wherver you want to do code splitting.
+
+While this is not Supported today, in the future we plan to let Suspense handle more scenarios such as date fetching. You can read about this in our roadmap.
+
+Note:
+
+React.lazy() and <React.Suspense> are not yet supported by ReactDOMServer. This is a known limitation that will be resolved in the future.
