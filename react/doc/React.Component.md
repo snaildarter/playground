@@ -243,3 +243,15 @@ static getDerivedStateFromProps(props, states)
 getDerivedStateFromProps is invoked right before calling the render method, both on the initial mount and on subsequent updates. It should return an object to update the state, or null to update nothing.
 
 This method exists for rare use cases where the state depends on changes in props over time. For example, it might be handy for implementing a <Transition> component that compares its previous and next children to decide which of them to animate in and out.
+
+Deriving state leads to verbose code and makes your components difficult to think about. Make sure you're familiar with simpler alternatives:
+
+- If you need to perform a side effect (for example, data fetching or an animation) in response to a change in props, use componentDidUpdate lifecycle instead.
+
+- If you want to re-compute some date only when a prop changes, use a memoization helper instead.
+
+- If you want to "reset" some state when a prop changes, consider either making a component fully controlled or fully uncontrolled with a key instead.
+
+This method doesn't have access to the component instance. If you'd like, you can reuse some code between getDerivedStateFromProps() and the other class methods by extracting pure functions of the component props and state outside the calss definition.
+
+Note that this method is fired on every render, regardless of the cause. This is in contrast to UNSAFE_componentWillReceiveProps, which only fires when the parent causes a re-render and not as a result of a local setState.
