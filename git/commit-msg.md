@@ -65,3 +65,28 @@ npm --no-git-tag-version version patch
 ```bash
 git fetch --tags -f
 ```
+
+
+批量更换原来已提交的name和email
+
+```bash
+#!/bin/sh
+
+git filter-branch --env-filter '
+
+OLD_EMAIL="www@www.com"
+CORRECT_NAME="Neal"
+CORRECT_EMAIL="1107554021@qq.com"
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags
+```
