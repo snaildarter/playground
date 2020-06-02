@@ -153,3 +153,15 @@
    - 3.6 形容词最高级作表语，不与一定范围内的事物或同类事物作比较时，不加定冠词
    - Babies are most adorable when they are not naughty.
    - The rainfall is biggest at this tiem of year.
+
+## 代词
+
+### 人称代词
+
+### 物主代词
+
+### 反身代词
+
+### 指示代词
+
+### 不定代词
