@@ -6,7 +6,6 @@ export default class HomeController extends Controller {
     const page = ctx.query.page || 1;
     const newsList = await ctx.service.news.list(page);
     console.log(newsList)
-    // return newsList;
     ctx.body = newsList;
     // await ctx.render('news/list.tpl', { list: newsList });
   }
