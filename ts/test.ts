@@ -146,7 +146,7 @@ interface Named {
 }
 
 class Person {
-    name: string;
+    name!: string;
 }
 
 let p: Named;
