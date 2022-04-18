@@ -1,5 +1,5 @@
 {
-  "name": "node_mongoose",
+  "name": "hello-koa",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^6.3.0"
+    "koa": "^2.13.4"
   }
 }
