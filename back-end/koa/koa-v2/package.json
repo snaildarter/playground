@@ -4,12 +4,20 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava -v simple.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.13.4"
+    "ava": "^4.3.1",
+    "koa": "^2.13.4",
+    "koa-router": "^12.0.0",
+    "koa-static": "^5.0.0",
+    "mongoose": "^6.4.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19",
+    "supertest": "^6.2.4"
   }
 }
