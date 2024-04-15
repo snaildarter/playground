@@ -1,7 +1,7 @@
 import { parse } from "recast";
 
-const code1 = `a.b.c.d`;
-const code2 = `a['b']['c']['d']`;
+const code1 = `a.b`;
+const code2 = `a['b']`;
 
 console.log(parse(code1));
 
